@@ -1,37 +1,38 @@
 import turtle as t
 
-# --- Setup ---
-t.setup(800, 600)  # 1. A good, standard screen size
-t.speed(0)         # 2. Draw instantly
-t.hideturtle()     # 3. Hide the arrow for a clean look
+t.setup(400, 600); t.speed('normal')
+t.hideturtle(); t.pensize(3)
 
-# --- A single, powerful helper to draw any filled rectangle ---
-def draw_box(x, y, width, height, color): # 4.
-    t.penup() # 5.
-    t.goto(x, y) # 6.
-    t.pendown() # 7.
-    t.fillcolor(color); t.begin_fill() # 8.
-    for _ in range(2): t.forward(width); t.left(90); t.forward(height); t.left(90) # 9.
-    t.end_fill() # 10.
+def go(x, y):
+    t.penup()
+    t.goto(x, y); t.pendown()
 
-# --- House Body & Door (using our helper) ---
-draw_box(-200, -150, 200, 180, "white") # 11. Main house section
-draw_box(0, -150, 150, 130, "white")    # 12. Side section (creates the L-shape)
-draw_box(-40, -150, 60, 100, "red")     # 13. The red door
+def draw_box(width, height, color):
+    t.fillcolor(color); t.begin_fill()
 
-# --- Roof (custom shape, just like the video) ---
-t.penup(); t.goto(-200, 30); t.pendown(); t.fillcolor("#A0522D"); t.begin_fill() # 14.
-t.goto(0, 130); t.goto(150, -20); t.goto(0, -20); t.goto(-200, 30) # 15.
-t.end_fill() # 16.
+    for _ in range(2):
+        t.forward(width); t.left(90)
+        t.forward(height); t.left(90)
+    t.end_fill()
 
-# --- Windows & Text (in a loop for efficiency) ---
-for x_coord in [-150, 50, 50, 100]: # 17. Loop for the four windows
-    y_coord = -10 if x_coord > 0 else -60 # A clever trick to set y-coordinates
-    draw_box(x_coord, y_coord, 40, 40, "#ADD8E6") # Light blue fill
-    t.penup(); t.goto(x_coord + 20, y_coord); t.pendown(); t.goto(x_coord + 20, y_coord + 40) # Vertical cross
-    t.penup(); t.goto(x_coord, y_coord + 20); t.pendown(); t.goto(x_coord + 40, y_coord + 20) # Horizontal cross
+go(-160, -150); draw_box(160, 180, "white")
+go(0, -150); draw_box(120, 130, "white")    
 
-t.penup(); t.goto(-150, 200); t.color("green"); t.pendown() # 18.
-t.write("Please subscribe to our channel\n   Coding With Karthik", font=("Verdana", 16, "bold")) # 19.
+go(-160, 30); t.fillcolor("#A0522D")
+t.begin_fill()
+t.goto(-80, 130)   
+t.goto(0, 30)
+t.goto(120, 30)    
+t.goto(120, -20)   
+t.goto(0, -20)
+t.goto(0, 30)
+t.end_fill()
 
-t.done() # Keeps the window open
+go(-50, -150); draw_box(50, 110, "red")    
+go(-40, -100); t.dot(10, "gold")             
+for x, y in [(-120, -50), (25, -80), (75, -80)]: 
+    go(x, y); draw_box(35, 35, "#ADD8E6") 
+    go(x+17.5, y); t.goto(x+17.5, y+35)
+    go(x, y+17.5); t.goto(x+35, y+17.5)
+
+t.done()
