@@ -1,10 +1,11 @@
 import turtle as tur
 import colorsys as csys
 
+# --- Screen and Speed Setup ---
 tur.bgcolor('black')
-tur.setup(1200, 800)
+tur.setup(400, 400)    # Slimmer and shorter window
 tur.width(2)
-tur.speed(0)
+tur.speed(3)           # Slower speed
 tur.tracer(4)
 
 def go_to(pos):
@@ -19,14 +20,16 @@ def draw_hexagon(size):
 
 def drawDesign():
     positions = []
-    size = 150
+    # --- ADJUSTED DRAWING SIZE ---
+    size = 50              # Scaled down from 150 (150 / 3) to fit the new window
     for i in range(6):
         tur.forward(size)
         tur.right(60)
         cur_pos = tur.pos()
         positions.append((cur_pos, tur.heading()))
 
-    step = 4
+    # --- ADJUSTED STEP FOR VISUAL DETAIL ---
+    step = 2               # Reduced from 4 to keep the lines looking dense
     inner_list = range(step, int(size/2)+step, step)
     inner_list_len = len(inner_list)
     for j,v in enumerate(inner_list):
@@ -42,7 +45,8 @@ def drawDesign():
             go_to(start_pos)
             tur.seth(angle)
 
-go_to((-100, 150))
+# --- ADJUSTED STARTING POSITION ---
+go_to((-33, 50))       # Scaled down from (-100, 150) to center the smaller drawing
 drawDesign()
 tur.hideturtle()
 tur.done()
